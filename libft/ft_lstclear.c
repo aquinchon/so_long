@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquincho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 11:28:35 by aquincho          #+#    #+#             */
-/*   Updated: 2022/07/02 11:29:24 by aquincho         ###   ########.fr       */
+/*   Created: 2022/05/06 12:06:38 by aquincho          #+#    #+#             */
+/*   Updated: 2022/05/06 12:06:40 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include <mlx.h>
-
-typedef struct	s_vars
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	void	*mlx;
-	void	*win;
-}	t_vars;
+	t_list	*current;
+	t_list	*next;
 
-typedef struct	s_data
-{
-	void	*img;
-	char	*adrr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_data;
-
-#endif
+	if (!(*lst))
+		return ;
+	current = *lst;
+	while (current)
+	{
+		next = current->next;
+		ft_lstdelone(current, (del));
+		current = next;
+	}
+	*lst = NULL;
+}

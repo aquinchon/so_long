@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquincho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 11:28:35 by aquincho          #+#    #+#             */
-/*   Updated: 2022/07/02 11:29:24 by aquincho         ###   ########.fr       */
+/*   Created: 2022/05/04 14:07:38 by aquincho          #+#    #+#             */
+/*   Updated: 2022/05/04 14:07:40 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include <mlx.h>
-
-typedef struct	s_vars
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*mlx;
-	void	*win;
-}	t_vars;
+	size_t	total;
+	char	*mem;
+	size_t	i;
 
-typedef struct	s_data
-{
-	void	*img;
-	char	*adrr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_data;
-
-#endif
+	total = size * nmemb;
+	if (size != 0 && nmemb > (SIZE_MAX / size))
+		return (NULL);
+	if (total == 0)
+		mem = malloc(1);
+	else
+		mem = malloc(total);
+	if (!mem)
+		return (NULL);
+	i = 0;
+	while (i < total)
+	{
+		mem[i] = 0;
+		i++;
+	}
+	return (mem);
+}

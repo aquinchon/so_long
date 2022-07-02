@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquincho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 11:28:35 by aquincho          #+#    #+#             */
-/*   Updated: 2022/07/02 11:29:24 by aquincho         ###   ########.fr       */
+/*   Created: 2022/05/06 11:32:11 by aquincho          #+#    #+#             */
+/*   Updated: 2022/05/06 11:32:13 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include <mlx.h>
-
-typedef struct	s_vars
+int	ft_lstsize(t_list *lst)
 {
-	void	*mlx;
-	void	*win;
-}	t_vars;
+	int	i;
 
-typedef struct	s_data
-{
-	void	*img;
-	char	*adrr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_data;
-
-#endif
+	if (!lst)
+		return (0);
+	i = 1;
+	while (lst->next)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}

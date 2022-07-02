@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquincho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 11:28:35 by aquincho          #+#    #+#             */
-/*   Updated: 2022/07/02 11:29:24 by aquincho         ###   ########.fr       */
+/*   Created: 2022/05/06 11:53:36 by aquincho          #+#    #+#             */
+/*   Updated: 2022/05/06 11:53:39 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
+#include <stdio.h>
 
-# include <mlx.h>
-
-typedef struct	s_vars
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	void	*mlx;
-	void	*win;
-}	t_vars;
+	t_list	*tmp;
 
-typedef struct	s_data
-{
-	void	*img;
-	char	*adrr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_data;
-
-#endif
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		tmp = (*lst);
+		while (tmp->next)
+		{
+			tmp = tmp->next;
+		}
+		tmp->next = new;
+	}
+}

@@ -1,33 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquincho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 11:28:35 by aquincho          #+#    #+#             */
-/*   Updated: 2022/07/02 11:29:24 by aquincho         ###   ########.fr       */
+/*   Created: 2022/05/17 14:42:28 by aquincho          #+#    #+#             */
+/*   Updated: 2022/05/17 14:42:32 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "ft_printf.h"
 
-# include <mlx.h>
-
-typedef struct	s_vars
+void	ft_printblank(char c, int size)
 {
-	void	*mlx;
-	void	*win;
-}	t_vars;
+	int	i;
 
-typedef struct	s_data
+	i = 0;
+	while (i < size)
+	{
+		write(1, &c, 1);
+		i++;
+	}
+}
+
+int	ft_max(int a, int b)
 {
-	void	*img;
-	char	*adrr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_data;
+	if (a < b)
+		return (b);
+	return (a);
+}
 
-#endif
+int	ft_nbrlen(unsigned int n, unsigned int base)
+{
+	int	len;
+
+	len = 1;
+	while (n >= base)
+	{
+		n = n / base;
+		len++;
+	}
+	return (len);
+}

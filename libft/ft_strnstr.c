@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquincho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 11:28:35 by aquincho          #+#    #+#             */
-/*   Updated: 2022/07/02 11:29:24 by aquincho         ###   ########.fr       */
+/*   Created: 2022/05/04 13:27:13 by aquincho          #+#    #+#             */
+/*   Updated: 2022/05/04 13:27:16 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include <mlx.h>
-
-typedef struct	s_vars
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	void	*mlx;
-	void	*win;
-}	t_vars;
+	size_t	i;
+	int		j;
 
-typedef struct	s_data
-{
-	void	*img;
-	char	*adrr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_data;
-
-#endif
+	i = 0;
+	if (*little == '\0')
+		return ((char *)big);
+	while (big[i] && i < len)
+	{
+		if (big[i] == little[0])
+		{
+			j = 0;
+			while (big[i + j] == little[j] && i + j < len)
+			{
+				if (little[j + 1] == '\0')
+					return ((char *)(big + i));
+				j++;
+			}
+		}
+		i++;
+	}
+	return (NULL);
+}

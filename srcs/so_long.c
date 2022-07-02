@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <unistd.h>
+#include <stdlib.h>
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -20,16 +22,32 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+int	close_win(t_vars *vars)
+{
+	write(1, "Bye...\n", 7);
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit (0);
+}
+
+#include <stdio.h>
+int	keypress(int keycode, t_vars *vars)
+{
+	if (keycode == 65307)
+		close_win(vars);
+	printf("%d\n", keycode);
+	return (0);
+}
+
 int	main(void)
 {
-	void	*mlx;
-	void	*mlx_win;
+	t_vars	vars;
 	t_data	img;
 	int		i;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 640, 480, "Hello");
-	img.img = mlx_new_image(mlx, 640, 480);
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello");
+	mlx_hook(vars.win, 2, 1L<<0, keypress, &vars);
+	img.img = mlx_new_image(vars.mlx, 640, 480);
 	img.adrr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
 	i = 0;
 	while (++i < 31)
@@ -39,8 +57,8 @@ int	main(void)
 		my_mlx_pixel_put(&img, 80, 20 + i, 0x000000FF);
 		my_mlx_pixel_put(&img, 80, 80 - i, 0xFF0000FF);
 	}
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	mlx_loop(vars.mlx);
 }
 
 /*int	main(int argc, char *argv[])

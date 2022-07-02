@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquincho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 11:28:35 by aquincho          #+#    #+#             */
-/*   Updated: 2022/07/02 11:29:24 by aquincho         ###   ########.fr       */
+/*   Created: 2022/05/04 08:43:35 by aquincho          #+#    #+#             */
+/*   Updated: 2022/05/04 08:43:39 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include <mlx.h>
-
-typedef struct	s_vars
+char	*ft_strchr(const char *s, int c)
 {
-	void	*mlx;
-	void	*win;
-}	t_vars;
+	int		i;
+	char	*tmp;
 
-typedef struct	s_data
-{
-	void	*img;
-	char	*adrr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_data;
-
-#endif
+	i = 0;
+	tmp = (char *)s;
+	if (c < 0)
+		return (NULL);
+	if (c > 255)
+		return (NULL);
+	while (*(tmp + i))
+	{
+		if (*(tmp + i) == c)
+			return (tmp + i);
+		i++;
+	}
+	if (*(tmp + i) == c)
+		return (tmp + i);
+	return (NULL);
+}
