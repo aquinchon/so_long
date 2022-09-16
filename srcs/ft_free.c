@@ -36,11 +36,35 @@ void	ft_free_map(t_map *map)
 		free(map->map);
 	if (map->fd > 0)
 		close(map->fd);
-	free (map);
+	if (map)
+		free (map);
+}
+
+void	ft_free_mlx(t_game *game)
+{
+	if (game->wall.img)
+		mlx_destroy_image(game->mlx, game->wall.img);
+	if (game->ground.img)
+		mlx_destroy_image(game->mlx, game->ground.img);
+	if (game->item.img)
+		mlx_destroy_image(game->mlx, game->item.img);
+	if (game->exit.img)
+		mlx_destroy_image(game->mlx, game->exit.img);
+	if (game->player.img)
+		mlx_destroy_image(game->mlx, game->player.img);
+	if (game->img.img)
+		mlx_destroy_image(game->mlx, game->img.img);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	mlx_loop_end(game->mlx);
+	//free(game->mlx);
 }
 
 void	ft_free_game(t_game *game)
 {
+	/*if (game->mlx)
+		ft_free_mlx(game);*/
 	if (game->map)
 		ft_free_map(game->map);
 	free (game);

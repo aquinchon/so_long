@@ -33,6 +33,7 @@ t_game	*ft_initialize(void)
 	t_game	*game;
 
 	game = malloc(sizeof(t_game));
+	game->mlx = NULL;
 	game->map = ft_initialize_map();
 	game->move_cnt = 0;
 	game->width = 0;

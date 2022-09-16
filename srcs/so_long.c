@@ -33,6 +33,6 @@ int	main(int argc, char *argv[])
 			game->map->pos_P / game->map->width, game->map->pos_E, game->map->pos_E % game->map->width,
 			game->map->pos_E / game->map->width, game->map->item_cnt, game->map->map);
 	ft_game(game);
-	ft_free_game(game);
+	//ft_free_game(game);
 	return (0);
 }

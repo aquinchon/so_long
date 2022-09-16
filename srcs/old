@@ -1,0 +1,67 @@
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->adrr + (y * data->line_len + x * (data->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
+/*void	mlx_draw_pmx(t_img *mlx_img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = mlx_img->adrr + (x * mlx_img->bpp / 8 + y * mlx_img->size_line);
+	*(unsigned int *)target = color;
+}*/
+
+int	keypress(int keycode, t_game *game)
+{
+	
+	if (keycode == K_ESC)
+	{
+		printf("%d\n", keycode);
+		ft_free_mlx(game);
+	}
+	game->map->item_cnt--;
+	printf("key %d %d %s\n", keycode, game->map->item_cnt, ft_itoa(game->map->item_cnt));
+	return (0);
+}
+
+/*void draw(t_img *img, t_game game)
+{
+	int	i;
+
+	i = 0;
+	while (++i < 31)
+	{
+		my_mlx_pixel_put(img, game.player_pos + i, game.player_pos + i, 0x00FF0000);
+		my_mlx_pixel_put(img, game.player_pos + i, game.player_pos - i, 0x0000FF00);
+		my_mlx_pixel_put(img, game.player_pos + 30, game.player_pos - 30 + i, 0x000000FF);
+		my_mlx_pixel_put(img, game.player_pos + 30, game.player_pos + 30 - i, 0xFF0000FF);
+	}
+}*/
+
+int	mouse_hook(int button, int x, int y, t_game *game)
+{
+	if (button == 1)
+		printf("%d, %d\n", x, y);
+	if (button == 2)
+	{
+		//mlx_destroy_image(game->mlx, &game->img);
+		//mlx_clear_window(game->mlx, game->win);
+		game->player_pos = 200;
+		//draw(&game->img, game);
+		//mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	}
+	return (0);
+}
+
+/*int	render_next_frame(t_game *game)
+{
+	//mlx_clear_window(game->mlx, game->win);
+	mlx_put_image_to_window(game->mlx, game->win, game->wall.img, 300, 300);
+	mlx_put_image_to_window(game->mlx, game->win, game->wall.img, 100, 100);
+	draw(&game->img, *game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	return (0);
+}*/
