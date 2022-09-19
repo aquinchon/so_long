@@ -22,7 +22,7 @@
 # include <mlx.h>
 //# include <mlx_int.h>
 
-#include <stdio.h>
+# include <stdio.h>
 
 # define K_ESC	65307
 # define K_LT	65361
@@ -45,8 +45,8 @@ typedef struct s_map
 	char	*map;
 	int		width;
 	int		height;
-	int		pos_P;
-	int		pos_E;
+	int		pos_p;
+	int		pos_e;
 	int		item_cnt;
 }	t_map;
 
@@ -93,6 +93,7 @@ int		ft_errors(char *msg);
 void	ft_free_map(t_map *map);
 void	ft_free_mlx(t_game *game);
 void	ft_free_game(t_game *game);
+int		ft_kill_win(t_game *game);
 /* Initialization ft_init.c */
 t_map	*ft_initialize_map(void);
 t_game	*ft_initialize(void);
@@ -102,18 +103,22 @@ int		ft_initialize_mlx(t_game *game);
 int		ft_read_map(char *filename, t_map *map);
 /* Map checking ft_check_map.c*/
 int		ft_check_map(t_map *map);
-/* Draw utilities ft_draw_utils.c*/
-void	ft_get_draw_size(t_map *map);
+/* Map drawing ft_draw_map.c*/
+void	ft_draw_map(t_game *game);
 /* play game ft_game.c */
 int		ft_game(t_game *game);
-
+/* player moves ft_move.c */
+int		ft_move_up(t_game *game);
+int		ft_move_down(t_game *game);
+int		ft_move_left(t_game *game);
+int		ft_move_right(t_game *game);
 
 typedef struct s_vars
 {
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	t_pmx	wall;
+	t_pmx		wall;
 	int			pos;
 }	t_vars;
 
