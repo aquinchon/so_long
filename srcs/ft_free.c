@@ -12,22 +12,6 @@
 
 #include "so_long.h"
 
-void	ft_free_doubleptr(void **ptr)
-{
-	int	i;
-
-	i = 0;
-	if (ptr)
-	{
-		while (ptr[i])
-		{
-			free(ptr[i]);
-			i++;
-		}
-		free(ptr);
-	}
-}
-
 void	ft_free_map(t_map *map)
 {
 	if (map->filename)
@@ -58,14 +42,19 @@ void	ft_free_mlx(t_game *game)
 		mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	mlx_loop_end(game->mlx);
-	//free(game->mlx);
 }
 
 void	ft_free_game(t_game *game)
 {
-	/*if (game->mlx)
-		ft_free_mlx(game);*/
 	if (game->map)
 		ft_free_map(game->map);
 	free (game);
+}
+
+int	ft_kill_win(t_game *game)
+{
+	ft_free_mlx(game);
+	free(game->mlx);
+	ft_free_game(game);
+	exit (0);
 }

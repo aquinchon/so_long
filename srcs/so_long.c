@@ -26,13 +26,8 @@ int	main(int argc, char *argv[])
 		ft_free_game(game);
 		return (0);
 	}
-	//FOR MAP TESTING
-	if (game->map != NULL)
-		printf("w: %d - h: %d\nP: %d (%d, %d) - E: %d (%d, %d) item: %d\n%s\n",
-			game->map->width, game->map->height, game->map->pos_P, game->map->pos_P % game->map->width,
-			game->map->pos_P / game->map->width, game->map->pos_E, game->map->pos_E % game->map->width,
-			game->map->pos_E / game->map->width, game->map->item_cnt, game->map->map);
 	ft_game(game);
-	//ft_free_game(game);
+	if (game)
+		ft_free_game(game);
 	return (0);
 }

@@ -26,64 +26,71 @@ static int	ft_check_file(char *path, t_game *game)
 	return (result);
 }
 
-static int	ft_initialize_texture(t_game *game)
+static int	ft_initialize_items(t_game *game)
 {
-	int result;
+	int	result;
 
-	result = ft_check_file("./img/wall.xpm", game);
-	if (!result)
-	{	
-		game->wall.rel_path = "./img/wall.xpm";
-		game->wall.img = mlx_xpm_file_to_image(game->mlx, game->wall.rel_path,
-			&game->wall.width, &game->wall.height);
-	}
-	result = ft_check_file("./img/sand.xpm", game);
-	if (!result)
-	{
-		game->ground.rel_path = "./img/sand.xpm";
-		game->ground.img = mlx_xpm_file_to_image(game->mlx,
-			game->ground.rel_path, &game->ground.width, &game->ground.height);
-	}
 	result = ft_check_file("./img/dragon.xpm", game);
-	if (!result)
-	{
-		game->player.rel_path = "./img/dragon.xpm";
-		game->player.img = mlx_xpm_file_to_image(game->mlx,
-			game->player.rel_path, &game->player.width, &game->player.height);
+	game->player.rel_path = "./img/dragon.xpm";
+	game->player.img = mlx_xpm_file_to_image(game->mlx,
+			game->player.rel_path, &game->player.width,
+			&game->player.height);
 	result = ft_check_file("./img/snake.xpm", game);
-	}
 	if (!result)
 	{
 		game->item.rel_path = "./img/snake.xpm";
 		game->item.img = mlx_xpm_file_to_image(game->mlx, game->item.rel_path,
-			&game->item.width, &game->item.height);
-		//ft_draw_item(game, game->item.img)
+				&game->item.width, &game->item.height);
 	}
 	result = ft_check_file("./img/door.xpm", game);
 	if (!result)
 	{
 		game->exit.rel_path = "./img/door.xpm";
 		game->exit.img = mlx_xpm_file_to_image(game->mlx, game->exit.rel_path,
-			&game->exit.width, &game->exit.height);
+				&game->exit.width, &game->exit.height);
 	}
 	return (result);
 }
 
-int ft_initialize_mlx(t_game *game)
+static int	ft_initialize_texture(t_game *game)
 {
 	int	result;
-	
+
+	result = ft_check_file("./img/wall.xpm", game);
+	if (!result)
+	{	
+		game->wall.rel_path = "./img/wall.xpm";
+		game->wall.img = mlx_xpm_file_to_image(game->mlx, game->wall.rel_path,
+				&game->wall.width, &game->wall.height);
+	}
+	result = ft_check_file("./img/sand.xpm", game);
+	if (!result)
+	{
+		game->ground.rel_path = "./img/sand.xpm";
+		game->ground.img = mlx_xpm_file_to_image(game->mlx,
+				game->ground.rel_path, &game->ground.width,
+				&game->ground.height);
+	}
+	if (!result)
+		result = ft_initialize_items(game);
+	return (result);
+}
+
+int	ft_initialize_mlx(t_game *game)
+{
+	int	result;
+
 	result = 0;
 	game->width = game->map->width * TEX_SIZE;
 	game->height = game->map->height * TEX_SIZE;
-	game->player_pos = game->map->pos_P;
-	printf("result init texture %d\n", result);
+	game->player_pos = game->map->pos_p;
 	if (!result)
 		game->mlx = mlx_init();
 	if (!game->mlx && !result)
 		result = ft_errors_free("Cannot initialize mlx.", game);
 	if (!result)
-		game->win = mlx_new_window(game->mlx, game->width, game->height, "So_long");
+		game->win = mlx_new_window(game->mlx, game->width,
+				game->height, "So_long");
 	if (!game->win && !result)
 		result = ft_errors_free("Cannot create window.", game);
 	if (!result)
@@ -92,10 +99,8 @@ int ft_initialize_mlx(t_game *game)
 		result = ft_errors_free("Cannot create image.", game);
 	else
 		game->img.adrr = mlx_get_data_addr(game->img.img, &game->img.bpp,
-			&game->img.line_len, &game->img.endian);
+				&game->img.line_len, &game->img.endian);
 	if (!result)
 		result = ft_initialize_texture(game);
 	return (result);
 }
-
-

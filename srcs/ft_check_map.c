@@ -20,12 +20,12 @@ static int	ft_check_items(int i, t_map *map, int *item)
 	if (map->map[i] == 'P')
 	{
 		item[0]++;
-		map->pos_P = i;
+		map->pos_p = i;
 	}
 	else if (map->map[i] == 'E')
 	{
 		item[1]++;
-		map->pos_E = i;
+		map->pos_e = i;
 	}
 	else if (map->map[i] == 'C')
 		item[2]++;
@@ -81,7 +81,7 @@ int	ft_check_map(t_map *map)
 	i = -1;
 	while (!res && ++i < map->width * map->height)
 	{
-		if ((i < map->width || i >= map->width * (map->height -1))
+		if ((i < map->width || i >= map->width * map->height)
 			&& map->map[i] != '1')
 			res = ft_errors("Map not surrounded by walls.");
 		else if ((i % map->width == 0 || ((i + 1) % map->width == 0))
@@ -92,7 +92,7 @@ int	ft_check_map(t_map *map)
 	}
 	if (!res && (item[0] != 1 || item[1] != 1 || item[2] < 1))
 		res = ft_errors("Wrong number of items.");
-	if (!res && !ft_check_exitpath(map, map->pos_P))
+	if (!res && !ft_check_exitpath(map, map->pos_p))
 		res = ft_errors("No way out.");
 	return (res);
 }

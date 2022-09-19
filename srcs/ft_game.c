@@ -11,82 +11,77 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 
-static void	ft_draw_items(t_game *game)
+static void	ft_put_info(t_game *game)
 {
-	int	i;
-
-	i = -1;
-	while (++i < game->map->width * game->map->height)
-	{
-		if (game->map->map[i] == 'C')
-			mlx_put_image_to_window(game->mlx, game->win, game->item.img,
-				(i % game->map->width) * 32, (i / game->map->width) * 32);
-		else if (game->map->map[i] == 'P')
-			mlx_put_image_to_window(game->mlx, game->win, game->player.img,
-				(i % game->map->width) * 32, (i / game->map->width) * 32);
-		else if (game->map->map[i] == 'E')
-			mlx_put_image_to_window(game->mlx, game->win, game->exit.img,
-				(i % game->map->width) * 32, (i / game->map->width) * 32);
-	}
+	write(1, "Nombre de mouvements: ", 22);
+	ft_putnbr_fd(game->move_cnt, 1);
+	write(1, " Items collectes: ", 18);
+	ft_putnbr_fd(game->item_collect, 1);
+	write(1, " / ", 3);
+	ft_putnbr_fd(game->map->item_cnt, 1);
+	write(1, "\r", 1);
 }
 
-static void	ft_draw_map(t_game *game)
+static void	ft_update(t_game *game)
 {
-	int	i;
-
-	i = -1;
-	while (++i < game->map->width * game->map->height)
+	if (game->map->map[game->player_pos] == 'C')
 	{
-		if (game->map->map[i] == '1')
-			mlx_put_image_to_window(game->mlx, game->win, game->wall.img,
-				(i % game->map->width) * 32, (i / game->map->width) * 32);
+		game->item_collect++;
+		game->map->map[game->player_pos] = '0';
+	}
+	if (game->map->map[game->player_pos] == 'E')
+	{
+		ft_put_info(game);
+		if (game->item_collect == game->map->item_cnt)
+		{
+			write(1, "\n", 1);
+			write(1, "\033[33;32mYOU WIN!!!", 19);
+			write(1, "\033[33;37m\n", 9);
+		}
 		else
-			mlx_put_image_to_window(game->mlx, game->win, game->ground.img,
-				(i % game->map->width) * 32, (i / game->map->width) * 32);
+		{
+			write(1, "\n", 1);
+			write(1, "\033[32;31mYou forgot some items!", 30);
+			write(1, "\033[33;37m\n", 9);
+		}
+		ft_kill_win(game);
 	}
-	ft_draw_items(game);
-}
-
-int ft_kill_win(t_game *game)
-{
-	ft_free_mlx(game);
-	free(game->mlx);
-	ft_free_game(game);
-	exit (0);
+	ft_put_info(game);
+	ft_draw_map(game);
 }
 
 int	ft_keypress(int keycode, t_game *game)
 {
-	
+	int	player_move;
+
 	if (keycode == K_ESC)
 		ft_kill_win(game);
 	else
 	{
-		game->map->item_cnt--;
-		printf("key %d %d %s\n", keycode, game->map->item_cnt, ft_itoa(game->map->item_cnt));
+		if (keycode == K_UP || keycode == 119)
+			player_move = ft_move_up(game);
+		if (keycode == K_DN || keycode == 115)
+			player_move = ft_move_down(game);
+		if (keycode == K_LT || keycode == 97)
+			player_move = ft_move_left(game);
+		if (keycode == K_RT || keycode == 100)
+			player_move = ft_move_right(game);
+		if (player_move)
+			ft_update(game);
 	}
 	return (0);
 }
 
 int	ft_game(t_game *game)
 {
-	int result;
+	int	result;
 
 	result = ft_initialize_mlx(game);
 	ft_draw_map(game);
 	sleep(1);
 	mlx_hook(game->win, 2, 1L << 0, ft_keypress, game);
 	mlx_hook(game->win, 17, 1L << 17, ft_kill_win, game);
-
-	//mlx_key_hook(game->win, ft_keypress, &game);
-	//mlx_mouse_hook(game->win, mouse_hook, &game);
-
-	//mlx_string_put(game->mlx, game->win, 50, 50, 0x00FF0000, ft_itoa(game->map->item_cnt));
-
 	mlx_loop(game->mlx);
 	if (game->mlx)
 		free(game->mlx);

@@ -22,8 +22,8 @@ t_map	*ft_initialize_map(void)
 	map->fd = 0;
 	map->width = 0;
 	map->height = 0;
-	map->pos_P = 0;
-	map->pos_E = 0;
+	map->pos_p = 0;
+	map->pos_e = 0;
 	map->item_cnt = 0;
 	return (map);
 }
