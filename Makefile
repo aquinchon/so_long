@@ -24,11 +24,9 @@ LIBFT_HEAD_PATH = libft/includes/
 MLX_PATH 		= mlx_linux/
 
 SRCS_PATH		= srcs/
-SRCS_FUNCTIONS	= so_long
+SRCS_FUNCTIONS	= so_long ft_init ft_errors ft_free ft_map ft_check_map \
+ft_init_mlx ft_game ft_move ft_draw_map
 SRCS = $(addprefix $(SRCS_PATH), $(addsuffix .c, $(SRCS_FUNCTIONS)))
-#SRCS_B_PATH			= srcs/
-#SRCS_B_FUNCTIONS	= pipex_bonus ft_errors ft_exec ft_files ft_fork
-#SRCS_B = $(addprefix $(SRCS_B_PATH), $(addsuffix .c, $(SRCS_B_FUNCTIONS)))
 
 HEAD_FLAGS		= -I $(LIBFT_HEAD_PATH) -I $(HEAD_PATH) -I $(MLX_PATH)
 LIBS_DIR_FLAGS	= -L $(LIBFT_PATH) -L $(MLX_PATH)
@@ -38,26 +36,19 @@ LIBS_FLAGS		= $(LIBFT_FLAG) $(MLX_FLAGS)
 
 
 OBJS = $(SRCS:.c=.o)
-#OBJS_B = $(SRCS_B:.c=.o)
 
 %.o: %.c
-	$(CC) $(HEAD_FLAGS) -c $< -o $@
-#	$(CC) $(CFLAGS) $(HEAD_FLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(HEAD_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	make all -C $(LIBFT_PATH)
-	make -C $(MLX_PATH)
+	@echo "\033[33;32m=== Compilating libraries \t\t\t\t\e[0m"
+	make all -s -C $(LIBFT_PATH)
+	make all -s -C $(MLX_PATH)
+	@echo "\033[33;32m=== Compilation libraries\t\t\t\tDONE\e[0m"
 	$(CC) $(CFLAGS) $(LIBS_DIR_FLAGS) $(OBJS) -o $(NAME) $(LIBS_FLAGS)
 	@echo "\033[33;32m=== Compilation so_long \t\t\t\tDONE\e[0m"
 
-#$(NAME_B): $(OBJS_B)
-#	@make all -C $(LIBFT_PATH)
-#	$(CC) -o $(NAME) $(OBJS_B) -L $(LIBFT_PATH) -lft
-#	@echo "\033[33;32m=== Compilation pipex bonus \t\t\tDONE\e[0m"
-
 all: $(NAME)
-
-#bonus: $(NAME_B)
 
 clean:
 	$(RM) $(OBJS)
@@ -72,4 +63,4 @@ fclean:	clean
 
 re: fclean all
 
-.PHONY: clean fclean re all bonus
+.PHONY: clean fclean re all
