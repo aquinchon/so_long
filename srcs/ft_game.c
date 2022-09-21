@@ -14,9 +14,9 @@
 
 static void	ft_put_info(t_game *game)
 {
-	write(1, "Nombre de mouvements: ", 22);
+	write(1, "Number of moves: ", 17);
 	ft_putnbr_fd(game->move_cnt, 1);
-	write(1, " Items collectes: ", 18);
+	write(1, " Collected items: ", 18);
 	ft_putnbr_fd(game->item_collect, 1);
 	write(1, " / ", 3);
 	ft_putnbr_fd(game->map->item_cnt, 1);
@@ -51,7 +51,7 @@ static void	ft_update(t_game *game)
 	ft_draw_map(game);
 }
 
-int	ft_keypress(int keycode, t_game *game)
+static int	ft_keypress(int keycode, t_game *game)
 {
 	int	player_move;
 
@@ -79,7 +79,6 @@ int	ft_game(t_game *game)
 
 	result = ft_initialize_mlx(game);
 	ft_draw_map(game);
-	sleep(1);
 	mlx_hook(game->win, 2, 1L << 0, ft_keypress, game);
 	mlx_hook(game->win, 17, 1L << 17, ft_kill_win, game);
 	mlx_loop(game->mlx);

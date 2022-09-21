@@ -22,7 +22,9 @@ static int	ft_check_file(char *path, t_game *game)
 	if (tmp_fd > 0)
 		close (tmp_fd);
 	else
+	{
 		result = ft_errors_free("Fichier image introuvable.", game);
+	}
 	return (result);
 }
 

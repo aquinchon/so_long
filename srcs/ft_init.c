@@ -39,5 +39,10 @@ t_game	*ft_initialize(void)
 	game->width = 0;
 	game->height = 0;
 	game->item_collect = 0;
+	game->wall.img = NULL;
+	game->ground.img = NULL;
+	game->player.img = NULL;
+	game->item.img = NULL;
+	game->exit.img = NULL;
 	return (game);
 }

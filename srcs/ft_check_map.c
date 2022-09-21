@@ -81,7 +81,7 @@ int	ft_check_map(t_map *map)
 	i = -1;
 	while (!res && ++i < map->width * map->height)
 	{
-		if ((i < map->width || i >= map->width * map->height)
+		if ((i < map->width || i >= map->width * (map->height - 1))
 			&& map->map[i] != '1')
 			res = ft_errors("Map not surrounded by walls.");
 		else if ((i % map->width == 0 || ((i + 1) % map->width == 0))
