@@ -1,7 +1,9 @@
 NAME = libft.a
 
 SRCS_PATH = ./
-SRCS_FUNCTIONS = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint \
+SRCS_FUNCTIONS = ft_calloc ft_strlen ft_strncmp ft_putendl_fd ft_substr \
+ft_strjoin ft_strchr ft_strlcat ft_strdup ft_putchar_fd ft_putnbr_fd
+#SRCS_FUNCTIONS = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint \
 ft_strlen ft_memset ft_bzero ft_memcpy	ft_memmove ft_strlcpy ft_strlcat \
 ft_toupper ft_tolower ft_strchr ft_strrchr ft_strncmp ft_memchr ft_memcmp \
 ft_strnstr ft_atoi ft_calloc ft_strdup ft_substr ft_strjoin ft_strtrim \
@@ -36,11 +38,11 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 AR = ar cr
 
-.c.o:
+%.o: %.c
 	$(CC) $(CFLAGS) -c -I $(HEAD_PATH) $< -o $(<:.c=.o)
 
-$(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(GNL_OBJS)
+	$(AR) $(NAME) $(OBJS) $(GNL_OBJS)
 	ranlib $(NAME)
 	@echo "\033[33;32m=== compilation libft \t\t\t\tDONE\e[0m"
 
@@ -59,12 +61,13 @@ gnl: $(GNL_OBJS)
 	ranlib $(NAME)
 	@echo "\033[33;32m=== compilation libft get_next_line \t\t\tDONE\e[0m"
 
-all:	$(NAME) bonus printf gnl
+all:	$(NAME)
+#all:	$(NAME) bonus printf gnl
 
 clean:
 	$(RM) $(OBJS)
-	$(RM) $(BONUS_OBJS)
-	$(RM) $(PRINTF_OBJS)
+#	$(RM) $(BONUS_OBJS)
+#	$(RM) $(PRINTF_OBJS)
 	$(RM) $(GNL_OBJS)
 	@echo "\033[33;32m=== delete compil files libft \t\t\tDONE\e[0m"
 
