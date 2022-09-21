@@ -20,9 +20,6 @@
 # include <fcntl.h>
 # include "libft.h"
 # include <mlx.h>
-//# include <mlx_int.h>
-
-# include <stdio.h>
 
 # define K_ESC	65307
 # define K_LT	65361
