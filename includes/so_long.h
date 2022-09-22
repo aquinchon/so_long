@@ -84,6 +84,7 @@ typedef struct s_game
 
 /* Errors management ft_errors.c */
 int		ft_error_arg(char *msg);
+int		ft_errors_game(char *msg, t_game *game);
 int		ft_errors_free(char *msg, t_game *game);
 int		ft_errors(char *msg);
 /* Free management ft_free.c*/
@@ -109,14 +110,5 @@ int		ft_move_up(t_game *game);
 int		ft_move_down(t_game *game);
 int		ft_move_left(t_game *game);
 int		ft_move_right(t_game *game);
-
-typedef struct s_vars
-{
-	void		*mlx;
-	void		*win;
-	t_img		img;
-	t_pmx		wall;
-	int			pos;
-}	t_vars;
 
 #endif
