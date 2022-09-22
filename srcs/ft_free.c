@@ -40,8 +40,11 @@ void	ft_free_mlx(t_game *game)
 		mlx_destroy_image(game->mlx, game->img.img);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
-	mlx_loop_end(game->mlx);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		mlx_loop_end(game->mlx);
+	}
 }
 
 void	ft_free_game(t_game *game)
@@ -54,7 +57,8 @@ void	ft_free_game(t_game *game)
 int	ft_kill_win(t_game *game)
 {
 	ft_free_mlx(game);
-	free(game->mlx);
+	if (game->mlx)
+		free(game->mlx);
 	ft_free_game(game);
 	exit (0);
 }
